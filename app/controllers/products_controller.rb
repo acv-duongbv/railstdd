@@ -11,9 +11,18 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
 
+  def edit
+    @product = Product.find(params[:id])
+  end
+
+  def update
+    @product = Product.new(product_params)
+    redirect_to product_path(@product) if @product.save
+  end
+
   def create
     @product = Product.new(product_params)
-    @product.save
+    return redirect_to "/products" if @product.save
   end
 
   private
